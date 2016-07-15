@@ -15,14 +15,14 @@ namespace HairSalon
 
 
     [Fact]
-    public void Test_StylistsEmptyAtFirst()
+    public void Test_StylistsNameEmptyAtFirst()
     {
       int result = Stylist.GetAll().Count;
       Assert.Equal(0, result);
     }
 
     [Fact]
-    public void Test_Equal_ReturnsTrueForSameName()
+    public void Test_Equal_ReturnsTrueForSameStylistName()
     {
 
       Stylist firstStylist = new Stylist("Girlene");
@@ -35,6 +35,17 @@ namespace HairSalon
     public void Dispose()
     {
       Stylist.DeleteAll();
+    }
+
+    [Fact]
+    public void Test_Save_SavesStylistNameToDataBase()
+    {
+      Stylist testStylist = new Stylist("Girlene");
+      testStylist.Save();
+      List<Stylist> result = Stylist.GetAll();
+      List<Stylist> testList = new List<Stylist>{testStylist};
+
+      Assert.Equal(testList, result);
     }
   }
 }
