@@ -1,6 +1,7 @@
 # _Hair Salon Database_
 
 #### By _**Adam Luchini**_
+#### _7/15/2016_ ####
 
 ## Description
 
