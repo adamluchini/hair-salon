@@ -6,6 +6,7 @@
         @foreach (var client in @Model.GetClients())
        {
          <p>@client.GetName()</p>
+         <a href="/client/@client.GetId()/edit">Edit</a>
          <form action="/client/@client.GetId()/delete" method="post">
            <input type="hidden" name="_method" value="DELETE">
            <button type="submit">Remove</button>

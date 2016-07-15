@@ -18,6 +18,10 @@
     @foreach (var stylist in Model)
     {
       <a href="/stylist/@stylist.GetId()">@stylist.GetName()</a>
+      <!-- <form action="/stylist/@stylist.GetId()/delete" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Remove</button>
+      </form> -->
     }
   }
 }
