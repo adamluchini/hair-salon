@@ -40,6 +40,7 @@
 //     {
 //       Stylist testStylist = new Stylist("Girlene");
 //       testStylist.Save();
+//
 //       List<Stylist> result = Stylist.GetAll();
 //       List<Stylist> testList = new List<Stylist>{testStylist};
 //
