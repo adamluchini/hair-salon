@@ -74,37 +74,71 @@ namespace HairSalon
       return allStylists;
     }
 
-      public void Save()
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name) OUTPUT INSERTED.id VALUES (@StylistName);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@StylistName";
+      nameParameter.Value = this.GetName();
+      cmd.Parameters.Add(nameParameter);
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
       {
-        SqlConnection conn = DB.Connection();
-        SqlDataReader rdr;
-        conn.Open();
-
-        SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name) OUTPUT INSERTED.id VALUES (@StylistName);", conn);
-
-        SqlParameter nameParameter = new SqlParameter();
-        nameParameter.ParameterName = "@StylistName";
-        nameParameter.Value = this.GetName();
-        cmd.Parameters.Add(nameParameter);
-        rdr = cmd.ExecuteReader();
-
-        while(rdr.Read())
-        {
-          this._id = rdr.GetInt32(0);
-        }
-        if (rdr != null)
-        {
-          rdr.Close();
-        }
-        if (conn != null)
-        {
-          conn.Close();
-        }
+        this._id = rdr.GetInt32(0);
       }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+        public static Stylist Find(int id)
+    {
+    SqlConnection conn = DB.Connection();
+    SqlDataReader rdr = null;
+    conn.Open();
+
+    SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
+    SqlParameter stylistIdParameter = new SqlParameter();
+    stylistIdParameter.ParameterName = "@StylistId";
+    stylistIdParameter.Value = id.ToString();
+    cmd.Parameters.Add(stylistIdParameter);
+    rdr = cmd.ExecuteReader();
+
+    int foundStylistId = 0;
+    string foundStylistName = null;
+
+    while(rdr.Read())
+    {
+      foundStylistName = rdr.GetString(1);
+      foundStylistId = rdr.GetInt32(0);
+    }
+    Stylist foundStylist = new Stylist(foundStylistName, foundStylistId);
+
+    if (rdr != null)
+    {
+      rdr.Close();
+    }
+    if (conn != null)
+    {
+      conn.Close();
+    }
+    return foundStylist;
+    }
 
 
 
-        public static void DeleteAll()
+      public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
