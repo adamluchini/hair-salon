@@ -14,6 +14,10 @@
        }
       }
     }
+    <form class="container" action="/stylist/@Model.GetId()/delete" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Remove Stylist</button>
+    </form>
     <h4>Add a new client</h4>
     <form method="post" action="/stylist/@Model.GetId()/addClient">
       Client name:
@@ -21,3 +25,6 @@
       <button type="submit">Add</button>
     </form>
     <p><a href = "/">Return home</a></p>
+    <form action="/stylists/delete" method="post">
+      <button type="submit">Clear all stylists</button>
+    </form>
