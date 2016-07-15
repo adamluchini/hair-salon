@@ -1,0 +1,19 @@
+<body>
+    <h4>@Model.GetName()'s Clients:</h4>
+
+    @{
+      if (@Model.GetClients() != null)
+      {
+        @foreach (var client in @Model.GetClients())
+       {
+         <p>@client.GetName()</p>
+       }
+      }
+    }
+    <h4>Add a new client</h4>
+    <form method="post" action="/stylist/@Model.GetId()/addClient">
+      Client name:
+      <input type="text" name="client-name">
+      <button type="submit">Add</button>
+    </form>
+    <p><a href = "/">Return home</a></p>
