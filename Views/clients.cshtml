@@ -1,12 +1,15 @@
 <body>
     <h4>@Model.GetName()'s Clients:</h4>
-
     @{
       if (@Model.GetClients() != null)
       {
         @foreach (var client in @Model.GetClients())
        {
          <p>@client.GetName()</p>
+         <form action="/client/@client.GetId()/delete" method="post">
+           <input type="hidden" name="_method" value="DELETE">
+           <button type="submit">Remove</button>
+         </form>
        }
       }
     }

@@ -33,13 +33,15 @@ namespace HairSalon
       Post["/stylist/{id}/addClient"] = parameters => {
         Client newClient = new Client(Request.Form["client-name"], parameters.id);
         newClient.Save();
-        Stylist SelectedStylist = Stylist.Find(parameters.id);
-        return View["clients.cshtml", SelectedStylist];
+        Stylist ActiveStylist = Stylist.Find(parameters.id);
+        return View["clients.cshtml", ActiveStylist];
       };
 
-      Post["/clients/delete"] = parameters => {
-        Client.DeleteAll();
-        return View["clients.cshtml"];
+      Delete["/client/{id}/delete"] = parameters => {
+        Client ActiveClient = Client.Find(parameters.id);
+        Stylist ActiveStylist = Stylist.Find(ActiveClient.GetStylistId());
+        ActiveClient.Delete();
+        return View["clients.cshtml", ActiveStylist];
       };
     }
   }
