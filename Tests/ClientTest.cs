@@ -13,6 +13,11 @@ namespace HairSalon
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hairsalon_test;Integrated Security=SSPI;";
     }
 
+    public void Dispose()
+    {
+      Client.DeleteAll();
+    }
+
     [Fact]
     public void Test_ClientsEmptyAtFirst()
     {
@@ -27,13 +32,44 @@ namespace HairSalon
       Client firstClient = new Client("Adam", 1);
       Client secondClient = new Client("Adam", 1);
 
-
       Assert.Equal(firstClient, secondClient);
     }
 
-    public void Dispose()
+    [Fact]
+    public void Test_Save_SavesClientToDatabase()
     {
-      Client.DeleteAll();
+      Client testClient = new Client("Adam", 1);
+      testClient.Save();
+
+      List<Client> result = Client.GetAll();
+      List<Client> testList = new List<Client>{testClient};
+
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_Save_AssignsIDToClientName()
+    {
+      Client testClient = new Client("Adam", 1);
+
+      testClient.Save();
+      Client savedClient = Client.GetAll()[0];
+
+      int result = savedClient.GetId();
+      int testId = testClient.GetId();
+
+      Assert.Equal(testId, result);
+    }
+
+    [Fact]
+    public void Test_Find_FindsClientInDatabase()
+    {
+      Client testClient = new Client("Adam", 1);
+      testClient.Save();
+
+      Client foundClient = Client.Find(testClient.GetId());
+
+      Assert.Equal(testClient, foundClient);
     }
   }
 }
