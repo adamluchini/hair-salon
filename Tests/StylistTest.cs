@@ -8,19 +8,30 @@ namespace HairSalon
 {
   public class StylistTest : IDisposable
   {
-    [Fact]
-    public void Test_DatabaseEmptyAtFirst()
-    {
-      //Arrange, Act
-      int result = Stylist.GetAll().Count;
-      //Assert
-      Assert.Equal(0, result);
-    }
-
     public StylistTest()
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hairsalon_test;Integrated Security=SSPI;";
     }
+
+
+    [Fact]
+    public void Test_StylistsEmptyAtFirst()
+    {
+      int result = Stylist.GetAll().Count;
+      Assert.Equal(0, result);
+    }
+
+    [Fact]
+    public void Test_Equal_ReturnsTrueForSameName()
+    {
+
+      Stylist firstStylist = new Stylist("Girlene");
+      Stylist secondStylist = new Stylist("Girlene");
+
+
+      Assert.Equal(firstStylist, secondStylist);
+    }
+
     public void Dispose()
     {
       Stylist.DeleteAll();

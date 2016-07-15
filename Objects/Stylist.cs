@@ -9,17 +9,30 @@ namespace HairSalon
     private int _id;
     private string _name;
 
-    public Stylist(int Id = 0, string Name)
+    public Stylist(string Name, int Id = 0)
     {
       _id = Id;
       _name = Name;
     }
-    
+
+    public override bool Equals(System.Object otherStylist)
+    {
+      if (!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+        Stylist newStylist = (Stylist) otherStylist;
+        bool nameEquality = this.GetName() == newStylist.GetName();
+        return (nameEquality);
+      }
+    }
+
     public int GetId()
     {
       return _id;
     }
-
     public string GetName()
     {
       return _name;
@@ -44,7 +57,7 @@ namespace HairSalon
       {
         int stylistId = rdr.GetInt32(0);
         string stylistName = rdr.GetString(1);
-        Stylist newStylist = new Stylist(stylistId, stylistName);
+        Stylist newStylist = new Stylist(stylistName, stylistId);
         allStylists.Add(newStylist);
       }
 
@@ -59,12 +72,13 @@ namespace HairSalon
 
       return allStylists;
     }
-      public static void DeleteAll()
+
+        public static void DeleteAll()
     {
-    SqlConnection conn = DB.Connection();
-    conn.Open();
-    SqlCommand cmd = new SqlCommand("DELETE FROM stylists;", conn);
-    cmd.ExecuteNonQuery();
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists;", conn);
+      cmd.ExecuteNonQuery();
     }
   }
 }
