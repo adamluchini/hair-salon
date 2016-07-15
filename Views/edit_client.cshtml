@@ -1,9 +1,13 @@
 <h2>Edit @Model.GetName()</h2>
     <form action="/client/@Model.GetId()/edit" method="post">
-    <input type="hidden" name="_method" value="PATCH">
-    <input name="client-id" type="hidden" value="@Model.GetId()">
-    <label for="client-name">Update @Model.GetName() 's name</label>
-    <input id="client-name" name="client-name" type="text">
-    <button type="submit">Submit</button>
+      <input type="hidden" name="_method" value="PATCH">
+      <input name="client-id" type="hidden" value="@Model.GetId()">
+      <label for="client-name">Update @Model.GetName() 's name</label>
+      <input id="client-name" name="client-name" type="text">
+      <button type="submit">Submit</button>
+  </form>
+  <form action="/client/@Model.GetId()/delete" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Remove</button>
   </form>
   <p><a href = "/">Return home</a></p>
