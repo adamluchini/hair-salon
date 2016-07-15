@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hair Salon</title>
-  </head>
-  <body>
-    <h1>All Stylists</h1>
-    @if (@Model.Count == 0)
-    {
-      <p>No stylists yet</p>
-    }
-    <ul>
-      @foreach (var stylist in Model)
-      {
-      <li><a href = "/stylist/@stylist.GetId()">@stylist.GetName()</a></li>
-      }
-    </ul>
-    <br><br>
-    <form action="/stylists/delete" method="post">
-      <button type="submit">Clear all stylists</button>
-    </form>
-    <p><a href = "/">Return home</a></p>
-    </body>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<h1>All Stylists</h1>
+@if (@Model.Count == 0)
+{
+  <p>No stylists yet</p>
+}
+<ul>
+  @foreach (var stylist in Model)
+  {
+  <li><a href = "/stylists/@stylist.GetId()">@stylist.GetName()</a></li>
+  }
+</ul>
+<br><br>
+<a href = "stylists/new">Add new stylist</a>
+<p><a href = "/">Return home</a></p>
+</body>
