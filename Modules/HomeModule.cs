@@ -19,6 +19,11 @@ namespace HairSalon
         List<Stylist> AllStylists = Stylist.GetAll();
         return View["stylists.cshtml", AllStylists];
       };
+
+      Post["/stylists/delete"] = _ => {
+        Stylist.DeleteAll();
+        return View["stylists.cshtml"];
+      };
     }
   }
 }
