@@ -13,11 +13,6 @@ namespace HairSalon
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hairsalon_test;Integrated Security=SSPI;";
     }
 
-    public void Dispose()
-    {
-      Stylist.DeleteAll();
-    }
-
     [Fact]
     public void Test_StylistsNameEmptyAtFirst()
     {
@@ -113,6 +108,11 @@ namespace HairSalon
       List<Stylist> testStylistList = new List<Stylist> {};
 
       Assert.Equal(testStylistList, resultStylist);
+    }
+    public void Dispose()
+    {
+      Stylist.DeleteAll();
+      Client.DeleteAll();
     }
   }
 }

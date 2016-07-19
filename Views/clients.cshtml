@@ -6,12 +6,12 @@
         @foreach (var client in @Model.GetClients())
        {
          <p>@client.GetName()</p>
-         <a href="/client/@client.GetId()/edit">Edit @client.GetName()</a>
+        <a href="/client/@client.GetId()/edit">Edit @client.GetName()</a>
        }
       }
     }
+    <a href="/stylist/@Model.GetId()/edit">Update @Model.GetName()</a>
     <form action="/stylist/@Model.GetId()/delete" method="post">
-      <a href="/stylist/@Model.GetId()/edit">Update @Model.GetName()</a>
       <input type="hidden" name="_method" value="DELETE">
       <button type="submit">Remove Stylist</button>
     </form>
